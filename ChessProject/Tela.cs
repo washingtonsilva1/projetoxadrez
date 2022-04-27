@@ -12,7 +12,7 @@ namespace ChessProject
                 for (int j = 0; j < tab.Colunas; j++)
                 {
                     if (tab.getPeca(i, j) != null)
-                        Console.Write("P ");
+                        Console.Write(tab.getPeca(i, j) + " ");
                     else
                         Console.Write("- ");
                 }
