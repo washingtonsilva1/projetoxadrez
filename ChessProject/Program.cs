@@ -1,5 +1,5 @@
 ﻿using System;
-using Tabuleiro;
+using tabuleiro;
 
 namespace ChessProject
 {
@@ -7,8 +7,7 @@ namespace ChessProject
     {
         static void Main(string[] args)
         {
-            Posicao pos = new Posicao(0, 0);
-            Console.WriteLine("Posição: " + pos);
+            Tabuleiro tab = new Tabuleiro(8, 8);
         }
     }
 }
