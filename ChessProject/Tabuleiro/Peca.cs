@@ -16,5 +16,10 @@
             Cor = cor;
             Tab = tab;
         }
+
+        public void incrementarMovimento()
+        {
+            QtdMovimento++;
+        }
     }
 }

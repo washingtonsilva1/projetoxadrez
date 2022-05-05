@@ -10,10 +10,18 @@ namespace ChessProject
         {
             try
             {
-                Tabuleiro tab = new Tabuleiro(8, 8);
-                Peca torre = new Torre(Cor.BRANCO, tab);
-                tab.colocarPeca(torre, new Posicao(0, 0));
-                Tela.imprimirTabuleiro(tab);
+                PartidaXadrez px = new PartidaXadrez();
+                while(!px.PartidaTerminada)
+                {
+                    Console.Clear();
+                    Tela.imprimirTabuleiro(px.Tabuleiro);
+                    Console.WriteLine("================================\n");
+                    Console.Write("Origem: ");
+                    Posicao origem = Tela.lerPosicaoXadrez(Console.ReadLine());
+                    Console.Write("Destino: ");
+                    Posicao destino = Tela.lerPosicaoXadrez(Console.ReadLine());
+                    px.movimentarPeca(origem, destino);
+                }
             }
             catch(TabuleiroException e)
             {
