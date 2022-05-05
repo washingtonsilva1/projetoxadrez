@@ -12,31 +12,33 @@ namespace xadrez
 
         public PartidaXadrez()
         {
-            iniciarPecas();
+            IniciarPecas();
         }
 
-        public void movimentarPeca(Posicao origem, Posicao destino)
+        public void MovimentarPeca(Posicao origem, Posicao destino)
         {
-            Peca p = Tabuleiro.retirarPeca(origem);
-            p.incrementarMovimento();
-            Peca pecaCapturada = Tabuleiro.retirarPeca(destino);
-            Tabuleiro.colocarPeca(p, destino);
+            if (!Tabuleiro.ExistePeca(origem))
+                throw new TabuleiroException("Não existe uma peça nesta posição!");
+            Peca p = Tabuleiro.RetirarPeca(origem);
+            p.IncrementarMovimento();
+            Peca pecaCapturada = Tabuleiro.RetirarPeca(destino);
+            Tabuleiro.ColocarPeca(p, destino);
         }
 
-        public void iniciarPecas()
+        public void IniciarPecas()
         {
-            Tabuleiro.colocarPeca(new Torre(Cor.PRETO, Tabuleiro), new PosicaoXadrez('c', 8).toPosicao());
-            Tabuleiro.colocarPeca(new Torre(Cor.PRETO, Tabuleiro), new PosicaoXadrez('c', 7).toPosicao());
-            Tabuleiro.colocarPeca(new Torre(Cor.PRETO, Tabuleiro), new PosicaoXadrez('d', 7).toPosicao());
-            Tabuleiro.colocarPeca(new Rei(Cor.PRETO, Tabuleiro), new PosicaoXadrez('d', 8).toPosicao());
-            Tabuleiro.colocarPeca(new Torre(Cor.PRETO, Tabuleiro), new PosicaoXadrez('e', 7).toPosicao());
-            Tabuleiro.colocarPeca(new Torre(Cor.PRETO, Tabuleiro), new PosicaoXadrez('e', 8).toPosicao());
-            Tabuleiro.colocarPeca(new Torre(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('c', 2).toPosicao());
-            Tabuleiro.colocarPeca(new Torre(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('c', 1).toPosicao());
-            Tabuleiro.colocarPeca(new Torre(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('d', 2).toPosicao());
-            Tabuleiro.colocarPeca(new Rei(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('d', 1).toPosicao());
-            Tabuleiro.colocarPeca(new Torre(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('e', 1).toPosicao());
-            Tabuleiro.colocarPeca(new Torre(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('e', 2).toPosicao());
+            Tabuleiro.ColocarPeca(new Torre(Cor.PRETO, Tabuleiro), new PosicaoXadrez('c', 8).ToPosicao());
+            Tabuleiro.ColocarPeca(new Torre(Cor.PRETO, Tabuleiro), new PosicaoXadrez('c', 7).ToPosicao());
+            Tabuleiro.ColocarPeca(new Torre(Cor.PRETO, Tabuleiro), new PosicaoXadrez('d', 7).ToPosicao());
+            Tabuleiro.ColocarPeca(new Rei(Cor.PRETO, Tabuleiro), new PosicaoXadrez('d', 8).ToPosicao());
+            Tabuleiro.ColocarPeca(new Torre(Cor.PRETO, Tabuleiro), new PosicaoXadrez('e', 7).ToPosicao());
+            Tabuleiro.ColocarPeca(new Torre(Cor.PRETO, Tabuleiro), new PosicaoXadrez('e', 8).ToPosicao());
+            Tabuleiro.ColocarPeca(new Torre(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('c', 2).ToPosicao());
+            Tabuleiro.ColocarPeca(new Torre(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('c', 1).ToPosicao());
+            Tabuleiro.ColocarPeca(new Torre(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('d', 2).ToPosicao());
+            Tabuleiro.ColocarPeca(new Rei(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('d', 1).ToPosicao());
+            Tabuleiro.ColocarPeca(new Torre(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('e', 1).ToPosicao());
+            Tabuleiro.ColocarPeca(new Torre(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('e', 2).ToPosicao());
         }
     }
 }
