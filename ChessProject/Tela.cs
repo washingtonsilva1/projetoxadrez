@@ -19,6 +19,7 @@ namespace ChessProject
             }
             Console.Write("  a b c d e f g h\n");
             Console.WriteLine();
+            Console.WriteLine("===================");
         }
 
         public static void ImprimirTabuleiro(Tabuleiro tab, Peca p)
@@ -43,6 +44,7 @@ namespace ChessProject
             }
             Console.Write("  a b c d e f g h\n");
             Console.WriteLine();
+            Console.WriteLine("===================");
         }
 
         public static Posicao LerPosicaoXadrez(string s)

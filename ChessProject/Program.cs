@@ -13,21 +13,33 @@ namespace ChessProject
                 PartidaXadrez px = new PartidaXadrez();
                 while (!px.PartidaTerminada)
                 {
-                    Console.Clear();
-                    Tela.ImprimirTabuleiro(px.Tabuleiro);
-                    Console.WriteLine("===================");
-                    Console.Write("Origem: ");
-                    Posicao origem = Tela.LerPosicaoXadrez(Console.ReadLine());
-                    Console.Clear();
-                    Tela.ImprimirTabuleiro(px.Tabuleiro, px.Tabuleiro.GetPeca(origem));
-                    Console.Write("Destino: ");
-                    Posicao destino = Tela.LerPosicaoXadrez(Console.ReadLine());
-                    px.MovimentarPeca(origem, destino);
+                    try
+                    {
+                        Console.Clear();
+                        Tela.ImprimirTabuleiro(px.Tabuleiro);
+                        Console.WriteLine("Turno: " + px.Turno);
+                        Console.WriteLine("Jogador da vez: " + px.JogadorAtual);
+                        Console.WriteLine();
+                        Console.Write("Origem: ");
+                        Posicao origem = Tela.LerPosicaoXadrez(Console.ReadLine());
+                        px.ValidarOrigem(origem);
+                        Console.Clear();
+                        Tela.ImprimirTabuleiro(px.Tabuleiro, px.Tabuleiro.GetPeca(origem));
+                        Console.Write("Destino: ");
+                        Posicao destino = Tela.LerPosicaoXadrez(Console.ReadLine());
+                        px.ValidarDestino(origem, destino);
+                        px.RealizarMovimento(origem, destino);
+                    }
+                    catch(TabuleiroException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
                 }
             }
             catch (TabuleiroException e)
             {
-                Console.WriteLine("Erro de tabuleiro: " + e.Message);
+                Console.WriteLine(e.Message);
             }
             catch (Exception e)
             {

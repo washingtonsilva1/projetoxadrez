@@ -17,16 +17,35 @@
             Tab = tab;
         }
 
-        public abstract bool[,] MovimentosPossiveis();
+        private protected bool PodeMover(Posicao pos)
+        {
+            return Tab.ExistePeca(pos) == false || Tab.GetPeca(pos).Cor != Cor;
+        }
 
         public void IncrementarMovimento()
         {
             QtdMovimento++;
         }
 
-        private protected bool PodeMover(Posicao pos)
+        public bool ExisteMovimentoPossivel()
         {
-            return Tab.ExistePeca(pos) == false || Tab.GetPeca(pos).Cor != Cor;
+            bool[,] mat = MovimentosPossiveis();
+            foreach(bool a in mat)
+            {
+                if (a)
+                    return true;
+            }
+            return false;
         }
+
+        public bool PodeMoverPara(Posicao pos)
+        {
+            bool[,] movPos = MovimentosPossiveis();
+            if (movPos[pos.Linha, pos.Coluna])
+                return true;
+            return false;
+        }
+
+        public abstract bool[,] MovimentosPossiveis();
     }
 }

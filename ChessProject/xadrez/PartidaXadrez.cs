@@ -15,14 +15,43 @@ namespace xadrez
             IniciarPecas();
         }
 
-        public void MovimentarPeca(Posicao origem, Posicao destino)
+        private void MovimentarPeca(Posicao origem, Posicao destino)
         {
-            if (!Tabuleiro.ExistePeca(origem))
-                throw new TabuleiroException("Não existe uma peça nesta posição!");
             Peca p = Tabuleiro.RetirarPeca(origem);
             p.IncrementarMovimento();
             Peca pecaCapturada = Tabuleiro.RetirarPeca(destino);
             Tabuleiro.ColocarPeca(p, destino);
+        }
+
+        private void MudarJogador()
+        {
+            if (JogadorAtual == Cor.BRANCO)
+                JogadorAtual = Cor.PRETO;
+            else
+                JogadorAtual = Cor.BRANCO;
+        }
+
+        public void ValidarOrigem(Posicao origem)
+        {
+            if (Tabuleiro.GetPeca(origem) == null)
+                throw new TabuleiroException("Não existe uma peça na posição de origem!");
+            if (Tabuleiro.GetPeca(origem).Cor != JogadorAtual)
+                throw new TabuleiroException("Somente podem se mover as peças: " + JogadorAtual + ".");
+            if (!Tabuleiro.GetPeca(origem).ExisteMovimentoPossivel())
+                throw new TabuleiroException("Esta peça não pode se mover!");
+        }
+
+        public void ValidarDestino(Posicao origem, Posicao destino)
+        {
+            if (!Tabuleiro.GetPeca(origem).PodeMoverPara(destino))
+                throw new TabuleiroException("Essa peça não pode se mover para esta posição!");
+        }
+
+        public void RealizarMovimento(Posicao origem, Posicao destino)
+        {
+            MovimentarPeca(origem, destino);
+            MudarJogador();
+            Turno++;
         }
 
         public void IniciarPecas()
