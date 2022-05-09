@@ -15,11 +15,7 @@ namespace ChessProject
                 {
                     try
                     {
-                        Console.Clear();
-                        Tela.ImprimirTabuleiro(px.Tabuleiro);
-                        Console.WriteLine("Turno: " + px.Turno);
-                        Console.WriteLine("Jogador da vez: " + px.JogadorAtual);
-                        Console.WriteLine();
+                        Tela.ImprimirPartida(px);
                         Console.Write("Origem: ");
                         Posicao origem = Tela.LerPosicaoXadrez(Console.ReadLine());
                         px.ValidarOrigem(origem);

@@ -6,6 +6,34 @@ namespace ChessProject
 {
     class Tela
     {
+        public static void ImprimirPartida(PartidaXadrez px)
+        {
+            Console.Clear();
+            ImprimirTabuleiro(px.Tabuleiro);
+            Console.WriteLine("Peças capturadas:");
+            Console.Write("Brancas: ");
+            ImprimirPecasCapturadas(px, Cor.BRANCO);
+            Console.Write("Pretas: ");
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            ImprimirPecasCapturadas(px, Cor.PRETO);
+            Console.ForegroundColor = aux;
+            Console.WriteLine();
+            Console.WriteLine("Turno: " + px.Turno);
+            Console.WriteLine("Jogador da vez: " + px.JogadorAtual);
+            Console.WriteLine();
+        }
+
+        private static void ImprimirPecasCapturadas(PartidaXadrez px, Cor cor)
+        {
+            Console.Write("[ ");
+            foreach(Peca p in px.PecasCapturadas(cor))
+            {
+                Console.Write(p + " ");
+            }
+            Console.WriteLine("]");
+        }
+
         public static void ImprimirTabuleiro(Tabuleiro tab)
         {
             for (int i = 0; i < tab.Linhas; i++)
