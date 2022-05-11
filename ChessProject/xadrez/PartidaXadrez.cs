@@ -11,13 +11,14 @@ namespace xadrez
         public int Turno { get; private set; } = 1;
         public Cor JogadorAtual { get; private set; } = Cor.BRANCO;
         public bool PartidaTerminada { get; private set; } = false;
+        public bool Xeque { get; private set; } = false;
 
         public PartidaXadrez()
         {
             IniciarPecas();
         }
 
-        private void MovimentarPeca(Posicao origem, Posicao destino)
+        private Peca MovimentarPeca(Posicao origem, Posicao destino)
         {
             Peca p = Tabuleiro.RetirarPeca(origem);
             p.IncrementarMovimento();
@@ -28,6 +29,7 @@ namespace xadrez
                 _pecasCapturadas.Add(pecaCapturada);
             }
             Tabuleiro.ColocarPeca(p, destino);
+            return pecaCapturada;
         }
 
         private void MudarJogador()
@@ -42,6 +44,44 @@ namespace xadrez
         {
             Tabuleiro.ColocarPeca(p, pos.ToPosicao());
             _pecasEmJogo.Add(p);
+        }
+
+        private Peca Rei(Cor cor)
+        {
+            return PecasEmJogo(cor).Find(p => p is Rei);
+        }
+
+        private Cor Adversario(Cor cor)
+        {
+            if (Cor.BRANCO == cor)
+                return Cor.PRETO;
+            else
+                return Cor.BRANCO;
+        }
+
+        private void DesfazerMovimento(Posicao pos1, Posicao pos2, Peca pecaCapturada)
+        {
+            Peca p = Tabuleiro.RetirarPeca(pos2);
+            p.DecrementarMovimento();
+            if (pecaCapturada != null)
+            {
+                Tabuleiro.ColocarPeca(pecaCapturada, pos2);
+                _pecasCapturadas.Remove(_pecasCapturadas.Find(p => p == pecaCapturada));
+                _pecasEmJogo.Add(pecaCapturada);
+            }
+            Tabuleiro.ColocarPeca(p, pos1);
+        }
+
+        public bool EstaEmXeque(Cor cor)
+        {
+            Peca rei = Rei(cor);
+            foreach (Peca p in PecasEmJogo(Adversario(cor)))
+            {
+                bool[,] possiveis = p.MovimentosPossiveis();
+                if (possiveis[rei.Posicao.Linha, rei.Posicao.Coluna])
+                    return true;
+            }
+            return false;
         }
 
         public void ValidarOrigem(Posicao origem)
@@ -62,7 +102,16 @@ namespace xadrez
 
         public void RealizarMovimento(Posicao origem, Posicao destino)
         {
-            MovimentarPeca(origem, destino);
+            Peca pecaCapturada = MovimentarPeca(origem, destino);
+            if (EstaEmXeque(JogadorAtual))
+            {
+                DesfazerMovimento(origem, destino, pecaCapturada);
+                throw new TabuleiroException("O seu rei está em xeque!");
+            }
+            if (EstaEmXeque(Adversario(JogadorAtual)))
+                Xeque = true;
+            else
+                Xeque = false;
             MudarJogador();
             Turno++;
         }

@@ -10,11 +10,18 @@ namespace ChessProject
         {
             Console.Clear();
             ImprimirTabuleiro(px.Tabuleiro);
+            ConsoleColor aux = Console.ForegroundColor;
+            if (px.Xeque)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("XEQUE!");
+                Console.ForegroundColor = aux;
+                Console.WriteLine();
+            }
             Console.WriteLine("Peças capturadas:");
             Console.Write("Brancas: ");
             ImprimirPecasCapturadas(px, Cor.BRANCO);
             Console.Write("Pretas: ");
-            ConsoleColor aux = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.Yellow;
             ImprimirPecasCapturadas(px, Cor.PRETO);
             Console.ForegroundColor = aux;

@@ -26,7 +26,12 @@ namespace ChessProject
                         px.ValidarDestino(origem, destino);
                         px.RealizarMovimento(origem, destino);
                     }
-                    catch(TabuleiroException e)
+                    catch (TabuleiroException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
+                    catch (Exception e)
                     {
                         Console.WriteLine(e.Message);
                         Console.ReadLine();
