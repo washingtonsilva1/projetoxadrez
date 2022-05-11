@@ -43,7 +43,7 @@
             return false;
         }
 
-        public bool PodeMoverPara(Posicao pos)
+        public bool PossivelMover(Posicao pos)
         {
             bool[,] movPos = MovimentosPossiveis();
             if (movPos[pos.Linha, pos.Coluna])
