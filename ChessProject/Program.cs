@@ -37,6 +37,8 @@ namespace ChessProject
                         Console.ReadLine();
                     }
                 }
+                Console.Clear();
+                Tela.ImprimirPartida(px);
             }
             catch (TabuleiroException e)
             {

@@ -59,17 +59,17 @@ namespace xadrez
                 return Cor.BRANCO;
         }
 
-        private void DesfazerMovimento(Posicao pos1, Posicao pos2, Peca pecaCapturada)
+        private void DesfazerMovimento(Posicao origem, Posicao destino, Peca pecaCapturada)
         {
-            Peca p = Tabuleiro.RetirarPeca(pos2);
+            Peca p = Tabuleiro.RetirarPeca(destino);
             p.DecrementarMovimento();
             if (pecaCapturada != null)
             {
-                Tabuleiro.ColocarPeca(pecaCapturada, pos2);
+                Tabuleiro.ColocarPeca(pecaCapturada, destino);
                 _pecasCapturadas.Remove(_pecasCapturadas.Find(p => p == pecaCapturada));
                 _pecasEmJogo.Add(pecaCapturada);
             }
-            Tabuleiro.ColocarPeca(p, pos1);
+            Tabuleiro.ColocarPeca(p, origem);
         }
 
         public bool EstaEmXeque(Cor cor)
@@ -82,6 +82,32 @@ namespace xadrez
                     return true;
             }
             return false;
+        }
+
+        public bool TesteXequeMate(Cor cor)
+        {
+            if (!EstaEmXeque(cor))
+                return false;
+            foreach (Peca p in PecasEmJogo(cor))
+            {
+                bool[,] possiveis = p.MovimentosPossiveis();
+                for (int i = 0; i < Tabuleiro.Linhas; i++)
+                {
+                    for (int j = 0; j < Tabuleiro.Colunas; j++)
+                    {
+                        if (possiveis[i, j])
+                        {
+                            Posicao origem = p.Posicao;
+                            Peca pecaCapturada = MovimentarPeca(origem, new Posicao(i, j));
+                            bool xeque = EstaEmXeque(cor);
+                            DesfazerMovimento(origem, new Posicao(i, j), pecaCapturada);
+                            if (!xeque)
+                                return false;
+                        }
+                    }
+                }
+            }
+            return true;
         }
 
         public void ValidarOrigem(Posicao origem)
@@ -112,8 +138,13 @@ namespace xadrez
                 Xeque = true;
             else
                 Xeque = false;
-            MudarJogador();
-            Turno++;
+            if (TesteXequeMate(Adversario(JogadorAtual)))
+                PartidaTerminada = true;
+            else
+            {
+                MudarJogador();
+                Turno++;
+            }
         }
 
         public List<Peca> PecasCapturadas(Cor cor)

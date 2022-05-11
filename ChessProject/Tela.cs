@@ -11,23 +11,34 @@ namespace ChessProject
             Console.Clear();
             ImprimirTabuleiro(px.Tabuleiro);
             ConsoleColor aux = Console.ForegroundColor;
-            if (px.Xeque)
+            if (!px.PartidaTerminada)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("XEQUE!");
+                if (px.Xeque)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("XEQUE!");
+                    Console.ForegroundColor = aux;
+                    Console.WriteLine();
+                }
+                Console.WriteLine("Peças capturadas:");
+                Console.Write("Brancas: ");
+                ImprimirPecasCapturadas(px, Cor.BRANCO);
+                Console.Write("Pretas: ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                ImprimirPecasCapturadas(px, Cor.PRETO);
                 Console.ForegroundColor = aux;
                 Console.WriteLine();
+                Console.WriteLine("Turno: " + px.Turno);
+                Console.WriteLine("Jogador da vez: " + px.JogadorAtual);
             }
-            Console.WriteLine("Peças capturadas:");
-            Console.Write("Brancas: ");
-            ImprimirPecasCapturadas(px, Cor.BRANCO);
-            Console.Write("Pretas: ");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            ImprimirPecasCapturadas(px, Cor.PRETO);
-            Console.ForegroundColor = aux;
-            Console.WriteLine();
-            Console.WriteLine("Turno: " + px.Turno);
-            Console.WriteLine("Jogador da vez: " + px.JogadorAtual);
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("XEQUEMATE!");
+                Console.WriteLine();
+                Console.ForegroundColor = aux;
+                Console.WriteLine("Vencedor: " + px.JogadorAtual);
+            }
             Console.WriteLine();
         }
 
