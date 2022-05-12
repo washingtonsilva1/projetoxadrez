@@ -54,16 +54,21 @@ namespace ChessProject
 
         public static void ImprimirTabuleiro(Tabuleiro tab)
         {
+            ConsoleColor aux = Console.ForegroundColor;
             for (int i = 0; i < tab.Linhas; i++)
             {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.Write((8 - i) + " ");
+                Console.ForegroundColor = aux;
                 for (int j = 0; j < tab.Colunas; j++)
                 {
                     ImprimirPeca(tab.GetPeca(i, j));
                 }
                 Console.WriteLine();
             }
+            Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("  a b c d e f g h\n");
+            Console.ForegroundColor = aux;
             Console.WriteLine();
             Console.WriteLine("===================");
         }

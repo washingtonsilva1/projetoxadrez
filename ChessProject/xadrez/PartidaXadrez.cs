@@ -75,6 +75,10 @@ namespace xadrez
         public bool EstaEmXeque(Cor cor)
         {
             Peca rei = Rei(cor);
+            if(rei == null)
+            {
+                throw new TabuleiroException("Não existe um rei em jogo!");
+            }
             foreach (Peca p in PecasEmJogo(Adversario(cor)))
             {
                 bool[,] possiveis = p.MovimentosPossiveis();
@@ -159,18 +163,39 @@ namespace xadrez
 
         public void IniciarPecas()
         {
-            NovaPeca(new Torre(Cor.PRETO, Tabuleiro), new PosicaoXadrez('c', 8));
-            NovaPeca(new Torre(Cor.PRETO, Tabuleiro), new PosicaoXadrez('c', 7));
-            NovaPeca(new Torre(Cor.PRETO, Tabuleiro), new PosicaoXadrez('d', 7));
-            NovaPeca(new Rei(Cor.PRETO, Tabuleiro), new PosicaoXadrez('d', 8));
-            NovaPeca(new Torre(Cor.PRETO, Tabuleiro), new PosicaoXadrez('e', 7));
-            NovaPeca(new Torre(Cor.PRETO, Tabuleiro), new PosicaoXadrez('e', 8));
-            NovaPeca(new Torre(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('c', 2));
-            NovaPeca(new Torre(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('c', 1));
-            NovaPeca(new Torre(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('d', 2));
-            NovaPeca(new Rei(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('d', 1));
-            NovaPeca(new Torre(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('e', 1));
-            NovaPeca(new Torre(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('e', 2));
+            NovaPeca(new Peao(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('a', 2));
+            NovaPeca(new Peao(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('b', 2));
+            NovaPeca(new Peao(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('c', 2));
+            NovaPeca(new Peao(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('d', 2));
+            NovaPeca(new Peao(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('e', 2));
+            NovaPeca(new Peao(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('f', 2));
+            NovaPeca(new Peao(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('g', 2));
+            NovaPeca(new Peao(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('h', 2));
+            NovaPeca(new Torre(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('a', 1));
+            NovaPeca(new Cavalo(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('b', 1));
+            NovaPeca(new Bispo(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('c', 1));
+            NovaPeca(new Rainha(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('d', 1));
+            NovaPeca(new Rei(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('e', 1));
+            NovaPeca(new Bispo(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('f', 1));
+            NovaPeca(new Cavalo(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('g', 1));
+            NovaPeca(new Torre(Cor.BRANCO, Tabuleiro), new PosicaoXadrez('h', 1));
+
+            NovaPeca(new Peao(Cor.PRETO, Tabuleiro), new PosicaoXadrez('a', 7));
+            NovaPeca(new Peao(Cor.PRETO, Tabuleiro), new PosicaoXadrez('b', 7));
+            NovaPeca(new Peao(Cor.PRETO, Tabuleiro), new PosicaoXadrez('c', 7));
+            NovaPeca(new Peao(Cor.PRETO, Tabuleiro), new PosicaoXadrez('d', 7));
+            NovaPeca(new Peao(Cor.PRETO, Tabuleiro), new PosicaoXadrez('e', 7));
+            NovaPeca(new Peao(Cor.PRETO, Tabuleiro), new PosicaoXadrez('f', 7));
+            NovaPeca(new Peao(Cor.PRETO, Tabuleiro), new PosicaoXadrez('g', 7));
+            NovaPeca(new Peao(Cor.PRETO, Tabuleiro), new PosicaoXadrez('h', 7));
+            NovaPeca(new Torre(Cor.PRETO, Tabuleiro), new PosicaoXadrez('a', 8));
+            NovaPeca(new Cavalo(Cor.PRETO, Tabuleiro), new PosicaoXadrez('b', 8));
+            NovaPeca(new Bispo(Cor.PRETO, Tabuleiro), new PosicaoXadrez('c', 8));
+            NovaPeca(new Rainha(Cor.PRETO, Tabuleiro), new PosicaoXadrez('d', 8));
+            NovaPeca(new Rei(Cor.PRETO, Tabuleiro), new PosicaoXadrez('e', 8));
+            NovaPeca(new Bispo(Cor.PRETO, Tabuleiro), new PosicaoXadrez('f', 8));
+            NovaPeca(new Cavalo(Cor.PRETO, Tabuleiro), new PosicaoXadrez('g', 8));
+            NovaPeca(new Torre(Cor.PRETO, Tabuleiro), new PosicaoXadrez('h', 8));
         }
     }
 }
