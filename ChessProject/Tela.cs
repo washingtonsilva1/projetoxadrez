@@ -76,10 +76,13 @@ namespace ChessProject
         public static void ImprimirTabuleiro(Tabuleiro tab, Peca p)
         {
             ConsoleColor original = Console.BackgroundColor;
+            ConsoleColor aux = Console.ForegroundColor;
             bool[,] possiveis = p.MovimentosPossiveis();
             for (int i = 0; i < tab.Linhas; i++)
             {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.Write((8 - i) + " ");
+                Console.ForegroundColor = aux;
                 for (int j = 0; j < tab.Colunas; j++)
                 {
                     if (possiveis[i, j])
@@ -93,7 +96,9 @@ namespace ChessProject
                 }
                 Console.WriteLine();
             }
+            Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("  a b c d e f g h\n");
+            Console.ForegroundColor = aux;
             Console.WriteLine();
             Console.WriteLine("===================");
         }
