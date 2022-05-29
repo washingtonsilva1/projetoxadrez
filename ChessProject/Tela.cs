@@ -6,6 +6,25 @@ namespace ChessProject
 {
     class Tela
     {
+        private static void ImprimirPeca(Peca peca)
+        {
+            if (peca == null)
+                Console.Write("- ");
+            else
+            {
+                if (peca.Cor == Cor.PRETO)
+                {
+                    ConsoleColor aux = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write(peca);
+                    Console.ForegroundColor = aux;
+                }
+                else
+                    Console.Write(peca);
+                Console.Write(" ");
+            }
+        }
+
         public static void ImprimirPartida(PartidaXadrez px)
         {
             Console.Clear();
@@ -108,25 +127,6 @@ namespace ChessProject
             char col = s[0];
             int lin = int.Parse(s[1].ToString());
             return new PosicaoXadrez(col, lin).ToPosicao();
-        }
-
-        private static void ImprimirPeca(Peca peca)
-        {
-            if (peca == null)
-                Console.Write("- ");
-            else
-            {
-                if (peca.Cor == Cor.PRETO)
-                {
-                    ConsoleColor aux = Console.ForegroundColor;
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.Write(peca);
-                    Console.ForegroundColor = aux;
-                }
-                else
-                    Console.Write(peca);
-                Console.Write(" ");
-            }
         }
     }
 }

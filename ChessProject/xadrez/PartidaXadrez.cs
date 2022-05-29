@@ -26,7 +26,7 @@ namespace xadrez
             Peca pecaCapturada = Tabuleiro.RetirarPeca(destino);
             if (pecaCapturada != null)
             {
-                _pecasEmJogo.Remove(_pecasEmJogo.Find(p => p == pecaCapturada));
+                _pecasEmJogo.Remove(_pecasEmJogo.Find(peca => peca == pecaCapturada));
                 _pecasCapturadas.Add(pecaCapturada);
             }
             Tabuleiro.ColocarPeca(p, destino);
@@ -63,7 +63,7 @@ namespace xadrez
                     else
                         posP = new Posicao(destino.Linha - 1, destino.Coluna);
                     pecaCapturada = Tabuleiro.RetirarPeca(posP);
-                    _pecasEmJogo.Remove(_pecasEmJogo.Find(p => p == pecaCapturada));
+                    _pecasEmJogo.Remove(_pecasEmJogo.Find(peca => peca == pecaCapturada));
                     _pecasCapturadas.Add(pecaCapturada);
                 }
             }
@@ -216,6 +216,21 @@ namespace xadrez
                 DesfazerMovimento(origem, destino, pecaCapturada);
                 throw new TabuleiroException("você não pode se colar em xeque!");
             }
+            Peca p = Tabuleiro.GetPeca(destino);
+
+            // Jogada Promoção
+            if (p is Peao)
+            {
+                if (destino.Linha == 0 && p.Cor == Cor.BRANCO || destino.Linha == 7 && p.Cor == Cor.PRETO)
+                {
+                        p = Tabuleiro.RetirarPeca(destino);
+                        _pecasEmJogo.Remove(p);
+                        p = new Rainha(JogadorAtual, Tabuleiro);
+                        _pecasEmJogo.Add(p);
+                        Tabuleiro.ColocarPeca(p, destino);
+                }
+            }
+
             if (EstaEmXeque(Adversario(JogadorAtual)))
                 Xeque = true;
             else
@@ -227,7 +242,6 @@ namespace xadrez
                 MudarJogador();
                 Turno++;
             }
-            Peca p = Tabuleiro.GetPeca(destino);
             // Jogada especial En passant
             if (p is Peao && (destino.Linha == origem.Linha + 2 || destino.Linha == origem.Linha - 2))
                 VulneravelEnPassant = p;

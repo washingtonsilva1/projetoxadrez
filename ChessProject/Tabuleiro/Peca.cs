@@ -5,7 +5,7 @@
         public Cor Cor { get; protected set; }
         public int QtdMovimento { get; protected set; } = 0;
         public Posicao Posicao { get; set; } = null;
-        public Tabuleiro Tab { get; set; }
+        public Tabuleiro Tab { get; protected set; }
 
         public Peca()
         {

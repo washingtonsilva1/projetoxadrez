@@ -40,7 +40,7 @@ namespace xadrez
                 pos.MudarValores(Posicao.Linha - 1, Posicao.Coluna);
                 if (Tab.PosicaoValidar(pos) && !ExistePeca(pos))
                     possiveis[pos.Linha, pos.Coluna] = true;
-                if (!ExistePeca(pos))
+                if (Tab.PosicaoValidar(pos) && !ExistePeca(pos))
                 {
                     pos.MudarValores(Posicao.Linha - 2, Posicao.Coluna);
                     if (Tab.PosicaoValidar(pos) && !ExistePeca(pos) && QtdMovimento == 0)
@@ -75,7 +75,7 @@ namespace xadrez
                 pos.MudarValores(Posicao.Linha + 1, Posicao.Coluna);
                 if (Tab.PosicaoValidar(pos) && !ExistePeca(pos))
                     possiveis[pos.Linha, pos.Coluna] = true;
-                if (!ExistePeca(pos))
+                if (Tab.PosicaoValidar(pos) && !ExistePeca(pos))
                 {
                     pos.MudarValores(Posicao.Linha + 2, Posicao.Coluna);
                     if (Tab.PosicaoValidar(pos) && !ExistePeca(pos) && QtdMovimento == 0)
